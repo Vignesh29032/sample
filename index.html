@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .header{
+            background-color:rgb(10, 92, 92) ;
+            backdrop-filter: blur(60px);
+        
+            color: white;
+            font-size: 20px;
+            margin-top: 10px;
+            
+        }
+        .header h1{
+            padding: 20px;
+        }
+        .book{
+            background-color: rgb(91, 70, 70);
+            height: 250px;
+            width: 350px;
+            display: inline-block;
+            margin:10px;
+            padding: 10px;
+            margin-right: 100px;
+            vertical-align: top;
+            border-radius: 20px;
+            padding: 10px;
+            
+
+        }
+        .book h1{
+            font-size: 40px;
+            color: wheat;
+            
+
+        }
+        .book h2{
+            font-size: 30px;
+            color: gray;
+        }
+        .book p{
+            color: azure;
+        }
+        .book .delete{
+            padding: 5px 10px 5px 5px;
+            border-radius: 10px;
+            border: none;
+            margin: 20px 0px 20px 10px ;
+        }
+        .plus{
+            position: fixed;
+            font-size: 60px;
+            background-color: rgb(227, 155, 155);
+            border-radius: 55%;
+            padding: 10px;
+            left:90%;
+            top:70%;    
+        }
+        .plus:hover{
+            cursor: pointer;
+            padding: 15px;
+            font-size: 80px;
+            transition: 3s;
+            border-radius: 70%;
+        }
+        .overlay{
+            background-color: black;
+            opacity: 0.8;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top:0;
+            left: 0;
+            z-index: 1;
+            display: none;
+        }
+        .popup-box{
+            background-color: red;
+            width:40%;
+            padding:20px;
+            border-radius: 30px;
+            position: absolute;
+            top:20%;
+            left: 35%;
+            z-index: 2;
+            display: none;
+    }
+    .popup-box input{
+        background: transparent;
+        border: none;
+        width: 100%;
+        margin: 5px;
+        padding: 5px;
+        font-size: 20px;
+        border-bottom: 2px solid black ;
+    }
+    .popup-box textarea{
+        background: transparent;
+        border: none;
+        width: 100%;
+        margin: 5px;
+        padding: 5px;
+        font-size: 20px;
+        border-bottom: 2px solid black ;
+    }
+    .add,.cancel{
+        padding: 10px;
+        border-radius: 20px;
+        margin-right: 30px;
+    }
+    input:focus{
+        outline: none;
+       
+    }
+    textarea:focus{
+        outline: none;
+       
+    }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Book Store</h1>
+    </div>
+    <div class="container">
+        <div class="book">
+            <h1 class="title">naruto</h1>
+            <h2 class="episode">200</h2>
+            <p class="about">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni atque rem soluta eveniet quod, animi repellendus! Veritatis eligendi voluptatibus optio ab natus quidem non quas, repellendus, nostrum quod error eveniet.</p>
+            <button class="delete" onclick="remove(event)">delete</button>
+        </div>
+        
+        
+    </div>
+    <div class="overlay"></div>
+    <div class="popup-box">
+        <h2>Add book</h2>
+        <form>
+            <input type="text" placeholder="booktitle" id="booktitle"><br>
+            <input type="text" placeholder="episode" id="episode"><br>
+            <textarea placeholder="about" id="about"></textarea><br>
+            <button class="add">ADD</button>
+            <button class="cancel">CANCEL</button>
+        </form>
+    </div>
+    <button class="plus" id="plus">+</button>
+    <script>
+        var plus=document.querySelector("#plus")
+        var overlay=document.querySelector(".overlay")
+        var popup=document.querySelector(".popup-box")
+        plus.addEventListener("click",function(){
+            overlay.style.display="block"
+            popup.style.display="block"
+        })
+        //cancel popup
+        var cancel=document.querySelector(".cancel")
+        cancel.addEventListener("click",function(event){
+            event.preventDefault()
+            overlay.style.display="none"
+            popup.style.display="none"
+        })
+        //addd
+        var container=document.querySelector(".container")
+        var title =document.getElementById("booktitle")
+        var episode=document.getElementById("episode")
+
+        var about =document.getElementById("about")
+
+        
+        var add=document.querySelector(".add")
+        add.addEventListener("click",function(event){
+            event.preventDefault()
+            var div=document.createElement("div")
+            div.setAttribute("class","book")
+            div.innerHTML=`<h1>${title.value}</h1>
+            <h2>${episode.value}</h2>
+            <p>${about.value}</p>
+            <button class="delete" onclick="remove(event)">delete</button>`
+            container.append(div)
+            overlay.style.display="none"
+            popup.style.display="none"
+            
+        })
+        //delete a div
+        function remove(event){
+            event.target.parentElement.remove()
+        }
+        
+        </script>
+</body>
+</html>
